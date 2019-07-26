@@ -16,10 +16,12 @@ import java.util.List;
  **/
 public class Generator {
 
-    //当生成的代码重复时，覆盖原代码
-    public static final Boolean overwrite = true;
+    /**
+     * 当生成的代码重复时，覆盖原代码
+     */
+    public static final Boolean OVERWRITE = true;
 
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws Exception {
 
         //1. 读取配置文件
         InputStream is = Generator.class.getResourceAsStream("/generatorConfig.xml");
@@ -30,7 +32,7 @@ public class Generator {
         Configuration config = parser.parseConfiguration(is);
 
         //3. 创建MyBatisGenerator
-        MyBatisGenerator mbg = new MyBatisGenerator(config, new DefaultShellCallback(overwrite), warnings);
+        MyBatisGenerator mbg = new MyBatisGenerator(config, new DefaultShellCallback(OVERWRITE), warnings);
         mbg.generate(null);
 
         //4. 输出日志
