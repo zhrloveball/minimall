@@ -9,5 +9,6 @@
 
 ### Day 2
 
+- 编写logback配置文件
 - 编写品牌管理Controller、Service，以及单元测试
 - 编写统一返回类CommonResult
