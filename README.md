@@ -9,6 +9,13 @@
 
 ### Day 2
 
-- 编写logback配置文件
-- 编写品牌管理Controller、Service，以及单元测试
-- 编写统一返回类CommonResult
+- 编写统一返回类 CommonResult
+- 编写品牌管理 Controller、Service
+- 编写 logback 配置文件
+
+### Day 3
+
+- Service 使用 Junit 测试，Controller 使用 MockMvc 测试
+- 集成 Swagger，增强 UI
+- 修改 MBG 生成类，自动生成 @ApiModelProperty 注释
+
