@@ -36,6 +36,13 @@ public class CommonResult<T> {
     /**
      * 成功
      */
+    public static <T> CommonResult<T> success(String message) {
+        return new CommonResult<>(ResultCode.SUCCESS.getCode(), message, null);
+    }
+
+    /**
+     * 成功
+     */
     public static <T> CommonResult<T> success(T data) {
         return new CommonResult<>(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMessage(), data);
     }

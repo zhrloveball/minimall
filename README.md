@@ -16,6 +16,10 @@
 ### Day 3
 
 - Service 使用 Junit 测试，Controller 使用 MockMvc 测试
-- 集成 Swagger，增强 UI
+- 集成 Swagger，使用增强 UI
 - 修改 MBG 生成类，自动生成 @ApiModelProperty 注释
 
+### Day 4
+
+- 安装并启动 Redis 服务
+- 整合 Redis，通过 StringRedisTemplate 操作 Redis，实现短信验证码的存储验证
