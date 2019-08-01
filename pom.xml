@@ -23,6 +23,7 @@
         <druid.version>1.1.10</druid.version>
         <mybatis.version>1.2.10</mybatis.version>
         <fastjson.version>1.2.49</fastjson.version>
+        <jwt.version>0.9.0</jwt.version>
     </properties>
 
     <dependencies>
@@ -42,6 +43,12 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
+        <!--SpringSecurity依赖配置-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
 
         <!-- lombok -->
         <dependency>
@@ -97,6 +104,12 @@
             <version>${swagger.ui.version}</version>
         </dependency>
 
+        <!--JWT(Json Web Token)登录支持-->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>${jwt.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
