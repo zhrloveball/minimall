@@ -1,4 +1,4 @@
-package com.minimall.config;
+package com.minimall.common.utils;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

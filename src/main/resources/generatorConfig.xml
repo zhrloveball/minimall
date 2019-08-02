@@ -37,7 +37,7 @@
         <!--指定生成mapper接口的的路径，mac下分隔符是'/'，windows下分隔符是'\'-->
         <javaClientGenerator type="XMLMAPPER" targetPackage="com.minimall.mbg.mapper" targetProject="src/main/java"/>
         <!--生成全部表tableName设为%-->
-        <table tableName="pms_brand">
+        <table tableName="%">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
     </context>
