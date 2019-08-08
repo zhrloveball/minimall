@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * @description: 自定义用户详情
+ * @description: 自定义用户详情，继承了Spring Security的 UserDetails接口，封装用户及权限
  * @author: Bran.Zuo
  * @create: 2019-08-02 14:39
  **/

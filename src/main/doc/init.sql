@@ -29,6 +29,8 @@ CREATE TABLE `ums_admin` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='后台用户表';
 
+INSERT INTO `ums_admin` VALUES ('1', 'admin', '$2a$10$xhUWI10HODfIdr9L7g4YYOW38.iS4bk2AzLAPRomMbBRXSqcVKhAy', null, 'admin@163.com', '系统管理员', '系统管理员', null, null, '1');
+
 DROP TABLE IF EXISTS `ums_role`;
 CREATE TABLE `ums_role` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
@@ -40,6 +42,11 @@ CREATE TABLE `ums_role` (
   `sort` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='后台用户角色表';
+
+INSERT INTO `ums_role` VALUES ('1', '商品管理员', '商品管理员', '0', NULL, '1', '0');
+INSERT INTO `ums_role` VALUES ('2', '商品分类管理员', '商品分类管理员', '0', NULL, '1', '0');
+INSERT INTO `ums_role` VALUES ('3', '商品类型管理员', '商品类型管理员', '0', NULL, '1', '0');
+INSERT INTO `ums_role` VALUES ('4', '品牌管理员', '品牌管理员', '0', NULL, '1', '0');
 
 DROP TABLE IF EXISTS `ums_permission`;
 CREATE TABLE `ums_permission` (
@@ -56,6 +63,12 @@ CREATE TABLE `ums_permission` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COMMENT='后台用户权限表';
 
+INSERT INTO `ums_permission` VALUES ('1', '0', '商品', null, null, '0', null, '1', null, '0');
+INSERT INTO `ums_permission` VALUES ('2', '1', '品牌管理', 'pms:brand:read', null, '1', '/pms/brand/index', '1', null, '0');
+INSERT INTO `ums_permission` VALUES ('3', '2', '添加品牌', 'pms:brand:create', null, '2', '/pms/brand/add', '1', null, '0');
+INSERT INTO `ums_permission` VALUES ('4', '2', '修改品牌', 'pms:brand:update', null, '2', '/pms/brand/update', '1', null, '0');
+INSERT INTO `ums_permission` VALUES ('5', '2', '删除品牌', 'pms:brand:delete', null, '2', '/pms/brand/delete', '1', null, '0');
+
 DROP TABLE IF EXISTS `ums_admin_role_relation`;
 CREATE TABLE `ums_admin_role_relation` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
@@ -64,6 +77,12 @@ CREATE TABLE `ums_admin_role_relation` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COMMENT='后台用户和角色关系表';
 
+INSERT INTO `ums_admin_role_relation` VALUES ('1', '1', '1');
+INSERT INTO `ums_admin_role_relation` VALUES ('2', '1', '2');
+INSERT INTO `ums_admin_role_relation` VALUES ('3', '1', '3');
+INSERT INTO `ums_admin_role_relation` VALUES ('4', '1', '4');
+
+
 DROP TABLE IF EXISTS `ums_role_permission_relation`;
 CREATE TABLE `ums_role_permission_relation` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
@@ -71,6 +90,12 @@ CREATE TABLE `ums_role_permission_relation` (
   `permission_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COMMENT='后台用户角色和权限关系表';
+
+-- 品牌管理员的权限
+INSERT INTO `ums_role_permission_relation` VALUES ('1', '4', '2');
+INSERT INTO `ums_role_permission_relation` VALUES ('2', '4', '3');
+INSERT INTO `ums_role_permission_relation` VALUES ('3', '4', '4');
+INSERT INTO `ums_role_permission_relation` VALUES ('4', '4', '5');
 
 DROP TABLE IF EXISTS `ums_admin_permission_relation`;
 CREATE TABLE `ums_admin_permission_relation` (
