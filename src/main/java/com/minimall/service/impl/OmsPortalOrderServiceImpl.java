@@ -30,7 +30,7 @@ public class OmsPortalOrderServiceImpl implements OmsPortalOrderService {
 
     @Override
     public void cancelOrder(Long orderId) {
-        //TODO 执行一系类取消订单操作
+        //TODO 执行一系类取消订单操作, 取消前判断订单支付状态
         log.info("process cancelOrder orderId:{}",orderId);
     }
 
