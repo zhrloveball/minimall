@@ -33,7 +33,7 @@ import java.util.List;
  **/
 @Configuration
 @EnableWebSecurity //加载 WebSecurityConfiguration、AuthenticationConfiguration 两个核心配置类
-@EnableGlobalMethodSecurity(prePostEnabled=true)
+@EnableGlobalMethodSecurity(prePostEnabled=true) //开启@PreAuthorize注解
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired

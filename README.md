@@ -52,6 +52,14 @@ Index 里面单条的记录称为 Document（文档），Document 中每个字�
     4. 通过 ``@PreAuthorize("hasAuthority('')")`` 实现对 Api 接口权限的校验
 - 改造 Swagger 配置，自动记住登录令牌进行发送
 
+粗略认证流程：
+1. 请求被 OncePerRequestFilter 拦截
+2. 从 JWT 中获取用户名
+3. UserDetailsService 根据用户名从数据库中查询出 UserDetails
+4. 将 UserDetails 中的权限信息 封装成 Authentication 的实现类 UsernamePasswordAuthenticationToken
+5. SecurityContextHolder.getContext().setAuthentication() 将 Authentication 认证信息加载到上下文
+6. MethodSecurityInterceptor.invoke() 调用 SecurityExpressionRoot.hasAuthority() 从 Authentication 中获取权限信息，对@PreAuthorize("hasAuthority('')") 中的权限进行校验
+
 ### Day 4
 
 - 安装并启动 Redis 服务
