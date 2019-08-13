@@ -1,7 +1,21 @@
 
-好记性不如烂笔头，撸一遍[18k star 商城代码](https://macrozheng.github.io/mall-learning/#/)。
+撸一遍[商城代码](https://macrozheng.github.io/mall-learning/#/)。
 
 ***
+
+### Day 7
+
+整合 Elasticsearch 实现商品搜索
+
+> Elasticsearch(ES) 是 Lucene 的封装，提供了 REST API 的操作接口。
+ES 本质上是一个分布式数据库，允许多台服务器协同工作，每台服务器可以运行多个 ES 实例。单个 ES 实例称为一个节点（node），一组节点构成一个集群（cluster）。
+ES 会索引所有字段，经过处理后写入一个``倒排索引（Inverted Index）``。查找数据的时候，直接查找该索引。所以，ES 数据管理的顶层单位就叫做 Index（索引），它是单个数据库的同义词。
+Index 里面单条的记录称为 Document（文档），Document 中每个字段称为 Field，Document 可以通过 Type 逻辑分组，Elastic 6.x 版只允许每个 Index 包含一个 Type，7.x 版将会彻底移除 Type(因为同一个 Index 中，不同 Type 中的同名字段在内部是同一个 Lucene 字段来支持的，同名字段类型不一致会导致混乱)
+
+1. 设计表 商品信息表``pms_product`` 商品属性参数表``pms_product_attribute`` 产品参数值表``pms_product_attribute_value``
+2. 定义商品 Document 对象 EsProduct，需要索引的字段加上 ``@Field``， 需要中文分词的字段加上中文分词器 ``ik``
+3. 继承 ElasticsearchRepository 接口可以获得常用的数据操作方法，在接口中直接指定查询方法名称便可查询，无需进行实现。
+4. 实现将数据库商品信息导入 ES 和商品信息简单查询接口
 
 ### Day 6
 

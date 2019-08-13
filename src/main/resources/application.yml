@@ -25,6 +25,12 @@ spring:
     username: mall
     password: mall
     publisher-confirms: true #如果对异步消息需要回调必须设置为true
+  data:
+    elasticsearch:
+      repositories:
+        enabled: true # 开启 Elasticsearch 仓库(默认值:true)
+      cluster-nodes: 127.0.0.1:9300 # 配置es节点信息，逗号分隔，如果没有指定，则启动ClientNode，9200端口是http查询使用的，9300集群使用
+      cluster-name: elasticsearch_test # es集群的名称，默认为elasticsearch
 
 mybatis:
   mapper-locations:
