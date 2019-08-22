@@ -3,9 +3,55 @@
 
 ***
 
+### Day 8
+
+#### 整合 MongoDB ，实现用户浏览商品记录的管理
+
+> 在电商领域，维护一个每位用户的行为记录为一个公司提供了获取对用户行为有价值、有前瞻性精准营销数据分析的方法，但是这将产生一定的成本。对于一个有着成千上万或者无数顾客的电商而言，记录所有用户基础产生的行为将会生成大量数据，以一种有用、可理解的方式存储那些数据变成了一个非常有挑战的任务。
+[电商参考架构第四部分：推荐及个性化](http://www.mongoing.com/blog/post/retail-reference-architecture-part-4-recommendations-and-personalizations)
+
+#### 实现步骤
+
+1. 添加 Maven 依赖，在 application.yml ``spring.data`` 节点下添加 MongoDB 配置
+2. 编写文档对象
+    - @Document:标示映射到Mongodb文档上的领域对象
+    - @Id:标示某个域为ID域
+    - @Indexed:标示某个字段为Mongodb的索引字段
+3. 继承 MongoRepository 接口，通过 Spring Data 方式操作数据，IDEA 对 Spring Data 有很好的支持，编写查询方法有智能提示
+4. 编写 REST 接口 调用 MongoRepository
+
+#### [安装 MongoDB](https://www.runoob.com/mongodb/mongodb-osx-install.html)
+
+```
+# 安装
+sudo brew install mongodb
+
+# 创建数据库存储目录 
+sudo mkdir -p /data/db
+
+# 并确保目录有正确权限
+sudo chown -R `id -un` /data/db
+
+# 设置环境变量
+vi .bash_profile
+export MONGDB_HOME=/usr/local/Cellar/mongodb/4.0.3_1
+export PATH=$PATH:$MONGDB_HOME/bin
+source .bash_profile
+
+# 启动
+mongod
+
+# 新建窗口
+mongo
+show dbs
+use minimall
+show tables
+db.memberReadHistory.find().pretty()
+```
+
 ### Day 7
 
-整合 Elasticsearch 实现商品搜索
+#### 整合 Elasticsearch 实现商品搜索
 
 > Elasticsearch(ES) 是 Lucene 的封装，提供了 REST API 的操作接口。
 ES 本质上是一个分布式数据库，允许多台服务器协同工作，每台服务器可以运行多个 ES 实例。单个 ES 实例称为一个节点（node），一组节点构成一个集群（cluster）。
@@ -17,9 +63,25 @@ Index 里面单条的记录称为 Document（文档），Document 中每个字�
 3. 继承 ElasticsearchRepository 接口可以获得常用的数据操作方法，在接口中直接指定查询方法名称便可查询，无需进行实现。
 4. 实现将数据库商品信息导入 ES 和商品信息简单查询接口
 
+#### [安装](https://www.elastic.co/guide/en/elasticsearch/reference/current/brew.html)
+
+```
+# 安装
+brew install elasticsearch
+
+# 启动 ,http://127.0.0.1:9200/
+elasticsearch
+
+# 安装 Kibana
+brew install kibana
+
+# 启动，http://localhost:5601/
+kibana
+```
+
 ### Day 6
 
-整合 RabbitMQ 实现延时取消订单：
+#### 整合 RabbitMQ 实现延时取消订单
 
 1. 当用户下单时系统会锁库存，同时设置订单超时时间
 2. 按订单超时时间发送一个延迟消息给 RabbitMQ，若时间到了用户还未支付，取消订单并释放库存
@@ -33,7 +95,8 @@ Index 里面单条的记录称为 Document（文档），Document 中每个字�
 > - Direct Exchange 是 RabbitMQ 默认的 Exchange，完全根据 RoutingKey 来路由消息。设置 Exchange 和 Queue 的 Binding 时需指定 RoutingKey（一般为 Queue Name），发消息时也指定一样的 RoutingKey，消息就会被路由到对应的Queue
 > - Topic Exchange 和 Direct Exchange 类似，也需要通过 RoutingKey 来路由消息，区别在于 Direct Exchange 对 RoutingKey 是精确匹配，而 Topic Exchange 支持模糊匹配。分别支持 ``*`` 和 ``#`` 通配符，``*`` 表示匹配一个单词，``#`` 则表示匹配没有或者多个单词
 
-如何实现：
+#### 实现步骤
+
 1. 定义**订单取消队列** ``mall.order.cancel`` 和 **订单延迟队列(死信队列)** ``mall.order.cancel.ttl`` 并绑定各自交换机
 2. 定义死信队列
     1. ``x-dead-letter-exchange`` 设置死信后发送的交换机 ``mall.order.direct``
@@ -41,6 +104,28 @@ Index 里面单条的记录称为 Document（文档），Document 中每个字�
 3. 下单时通过交换机向**订单延迟队列** ``mall.order.cancel.ttl`` 发送消息，并设置 ``TTL(Time To Live 过期时间)``
 4. 消息在**订单延迟队列**中生存时间超过设置的 TTL 后，就会变成死信(Dead Message)，通过绑定的交换机进入**订单取消队列** ``mall.order.cancel``
 5. 通过 ``@RabbitListener(queues = "mall.order.cancel")`` 和 ``@RabbitHandler`` 处理**订单取消队列**中的消息
+
+#### 安装
+
+[Mac 上安装 RabbitMQ](https://www.rabbitmq.com/install-standalone-mac.html)
+```
+# brew 安装
+brew install rabbitmq
+
+# 配置环境 
+vi .bash_profile
+export RABBIT_HOME=/usr/local/Cellar/rabbitmq/3.7.16
+export PATH=$PATH:$RABBIT_HOME/sbin
+souce .bash_profile
+
+# 启动，停止ctrl+c
+rabbitmq-server
+# 后台启动
+rabbitmq-server -detached
+
+# 后台启动后停止
+rabbitmqctl stop
+```
 
 ### Day 5
 
@@ -63,6 +148,19 @@ Index 里面单条的记录称为 Document（文档），Document 中每个字�
 ### Day 4
 
 - 安装并启动 Redis 服务
+```
+# 安装
+brew install redis
+
+# 配置环境
+vi .bash_profile
+export REDIS_HOME=/usr/local/Cellar/redis/5.0.5
+export PATH=$PATH:$REDIS_HOME/bin
+source .bash_profile
+
+# 启动
+redis-server
+```
 - 整合 Redis，通过 StringRedisTemplate 操作 Redis，实现短信验证码的存储验证
 
 ### Day 3
