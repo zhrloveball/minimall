@@ -39,7 +39,7 @@ public class MemberReadHistoryController {
     @ApiOperation("展示浏览记录")
     @GetMapping("/list")
     @ResponseBody
-    public CommonResult<List<MemberReadHistory>> list(Long memberId) {
+    public CommonResult<List<MemberReadHistory>> list(@RequestParam("memberId") Long memberId) {
         return CommonResult.success(service.list(memberId));
     }
 
