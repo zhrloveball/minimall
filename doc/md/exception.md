@@ -88,7 +88,7 @@ public class ExceptionHandlerExceptionResolver extends AbstractHandlerMethodExce
 }
 ```
 
-![exceptionResolvers](doc/png/exceptionResolver.png)
+![exceptionResolvers](/png/exceptionResolver.png)
 
 
 ##### 10.2.2 DispatcherServlet 初始化 handlerExceptionResolvers 对象
